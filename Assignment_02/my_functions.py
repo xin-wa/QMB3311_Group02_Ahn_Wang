@@ -48,40 +48,47 @@ def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> flo
 
 # Exercise 1
 def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
-    """Return the present value of cash_flow expected num_yrs from now discounted at interest_rate."""
+    """Return the present value of cash_flow expected num_yrs from now discounted at interest_rate.
+
+    >>> present_value(110, 0.10, 1)
+    100.0
+    >>> present_value(121, 0.10, 2)
+    100.0
+    >>> present_value(100, .1, 5)
+    62.09
+    """
     
     answer = cash_flow/((1 + interest_rate) ** num_yrs)
     return answer
 
 # Exercise 2
 def future_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
-    """Return the future value of cash_flow expected num_yrs from now discounted at interest_rate
+    """Return the future value of present cash_flow num_yrs from now discounted at interest_rate.
     """
     answer = cash_flow * ((1 + interest_rate) ** num_yrs)
     return answer
 
 # Exercise 3
 def total_revenue(units_sold: float, unit_price: float) -> float:
-    """
+    """Return total revenue from all units_sold at unit_price.
     """
     answer = units_sold * unit_price
     return answer
 
 # Exercise 4
 def total_cost(units_produced: float, fixed_cost: float, cost_per_unit_sq: float) -> float:
-    """
+    """Return total cost of units_produced using constant cost_per_unit_sq plus fixed cost.
     """
     answer = cost_per_unit_sq * (units_produced ** 2) + fixed_cost
     return answer
 
 # Exercise 5
-
-
-
-
-
-
-
+def CESutility(x: float, y: float, r: float) -> float:
+    """Return the theoretical degree of satisfaction a customer may get from goods x and y 
+    using r, the degree which the goods are complements or substitutes.
+    """
+    answer = (x ** r + y ** r) ** (1/r)
+    return answer
 
 ##################################################
 # Run the examples to test these functions
