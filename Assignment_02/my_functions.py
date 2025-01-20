@@ -44,9 +44,38 @@ def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> flo
 
     return answer
 
-
-
 # Define the rest of your functions for Exercises 2-5.
+
+# Exercise 1
+def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
+    """Return the present value of cash_flow expected num_yrs from now discounted at interest_rate."""
+    
+    answer = cash_flow/((1 + interest_rate) ** num_yrs)
+    return answer
+
+# Exercise 2
+def future_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
+    """Return the future value of cash_flow expected num_yrs from now discounted at interest_rate
+    """
+    answer = cash_flow * ((1 + interest_rate) ** num_yrs)
+    return answer
+
+# Exercise 3
+def total_revenue(units_sold: float, unit_price: float) -> float:
+    """
+    """
+    answer = units_sold * unit_price
+    return answer
+
+# Exercise 4
+def total_cost(units_produced: float, fixed_cost: float, cost_per_unit_sq: float) -> float:
+    """
+    """
+    answer = cost_per_unit_sq * (units_produced ** 2) + fixed_cost
+    return answer
+
+# Exercise 5
+
 
 
 
