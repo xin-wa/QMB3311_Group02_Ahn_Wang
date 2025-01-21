@@ -29,7 +29,6 @@
 ##################################################
 
 # Exercise 1
-
 def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
     """Return the present value of cash_flow expected num_yrs from now discounted at interest_rate.
 
@@ -44,6 +43,7 @@ def present_value(cash_flow: float, interest_rate: float, num_yrs: float) -> flo
     answer = cash_flow/((1 + interest_rate) ** num_yrs)
     return answer
 
+# Exercise 2
 def future_value(cash_flow: float, interest_rate: float, num_yrs: float) -> float:
     """Return the future value of present cash_flow num_yrs from now discounted at interest_rate.
     
@@ -222,16 +222,6 @@ print("Expected: " + str(10.0))
 print("The theoretical degree of satisfaction a consumer may get when the price of good 1 and 2 are equal to $5.00, with it being a perfect substitute is:",+(CESutility(5, 5, 1)))
 
 
-
-
-# ...
-
-
-# Continue with the rest of your examples.
-# Test all functions with three examples each.
-
-# Choose good examples that will test interesting cases.
-# Make sure they all work correctly.
 
 
 ##################################################
