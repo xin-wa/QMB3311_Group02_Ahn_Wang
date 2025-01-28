@@ -48,11 +48,11 @@ def future_value(cash_flow: float, interest_rate: float, num_yrs: float) -> floa
     """Return the future value of present cash_flow num_yrs from now discounted at interest_rate.
     
     >>> future_value(110, 0.10, 1)
-   100.0
-   >>> future_value(200, 0.10, 2)
-   242.0
-   >>> future_value(400, .08, 5)
-   587.73
+    100.0
+    >>> future_value(200, 0.10, 2)
+    242.0
+    >>> future_value(400, .08, 5)
+    587.73
     """
     answer = cash_flow * ((1 + interest_rate) ** num_yrs)
     return answer
@@ -62,11 +62,11 @@ def total_revenue(units_sold: float, unit_price: float) -> float:
     """Return total revenue from all units_sold at unit_price.
     
     >>> total_revenue(100, 4)
-   400.0
-   >>> total_revenue(1000000, 120.5)
-   120500000.0
-   >>> total_revenue(344, 6.45)
-   2218.8
+    400.0
+    >>> total_revenue(1000000, 120.5)
+    120500000.0
+    >>> total_revenue(344, 6.45)
+    2218.8
     """
     answer = units_sold * unit_price
     return answer
@@ -76,11 +76,11 @@ def total_cost(units_produced: float, fixed_cost: float, cost_per_unit_sq: float
     """Return total cost of units_produced using constant cost_per_unit_sq plus fixed cost.
     
     >>> total_cost(900, 3, 60)
-   30004.0
-   >>> total_cost(1000, 10, 3.42)
-   3420010.0
-   >>> total_cost(1000000, 100000, 45)
-   45000000100000.0
+    30004.0
+    >>> total_cost(1000, 10, 3.42)
+    3420010.0
+    >>> total_cost(1000000, 100000, 45)
+    45000000100000.0
     """
     answer = cost_per_unit_sq * (units_produced ** 2) + fixed_cost
     return answer
@@ -91,11 +91,11 @@ def CESutility(x: float, y: float, r: float) -> float:
     using r, the degree which the goods are complements or substitutes.
     
     >>> CESutility(40, 30, .5)
-   8.615612366938898
-   >>> CESutility(40, 30, -.5)
-   139.28
-   >>> CESutility(5, 5, 1)
-   10
+    8.615612366938898
+    >>> CESutility(40, 30, -.5)
+    139.28
+    >>> CESutility(5, 5, 1)
+    10
     """
     answer = (x ** r + y ** r) ** (1/r)
     return answer
@@ -227,3 +227,5 @@ print("The theoretical degree of satisfaction a consumer may get when the price 
 ##################################################
 # End
 ##################################################
+
+# Wrong name of the repository QMB3311 not QMB3111 (-1)
