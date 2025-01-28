@@ -32,8 +32,9 @@
 
 # Only function definitions here - no other calculations. 
 
-# Exercise 1
-
+# Exercise (a)
+def CESutility_valid(x, y, r)
+ answer = (x**r + y**r)**(1/r)
 # ...
 
 # Define the rest of your functions for Exercises 2-4.
