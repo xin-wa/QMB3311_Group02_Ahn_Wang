@@ -115,8 +115,8 @@ def logit_like(y_i:int, x_i:float, b_0:float, b_1:float) ->float:
         x = x_i
         return (1 - logit(x, b_0, b_1))
     else:
-            print("Error! y_i must be equal to 1 or 0.")
-            return None
+        print("Error! y_i must be equal to 1 or 0.")
+        return None
 
 # Only function definitions above this point. 
 
