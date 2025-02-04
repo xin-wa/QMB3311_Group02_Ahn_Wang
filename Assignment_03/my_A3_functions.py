@@ -34,14 +34,25 @@ from math import e
 # Exercise (a)
 def CESutility_valid(x:float, y:float, r:float) -> float:
     """CESutility_valid finds the Constant Elasticity of Substitution utility function,
-    it calculates the two goods x and y, and the elasticity parameter r"""
+    it calculates the two goods x and y, and the elasticity parameter r, when given 
+    non-negative numbers for x and y and a strictly positive number for r.
+    
+    >>> CESutility_valid(3, 2, 1)
+    5.0
+    >>> CESutility_valid(-3, 2, 1)
+    Error! x cannot be negative.
+    None
+    >>> CESutility_valid(3, -2, 1)
+    Error! y cannot be negative.
+    None
+    """
     if x < 0:
         print("Error! x cannot be negative.")
         return None
     if y < 0:
         print("Error! y cannot be negative.")
         return None
-    if r < 0:
+    if r <= 0:
         print("Error! r must be positive")
         return None
     else:
@@ -50,10 +61,21 @@ def CESutility_valid(x:float, y:float, r:float) -> float:
 
 # Exercise (b)
 def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:float) -> float:
-    """CESutility_in_budget calculates the CES utility while making sure that the purchase is
+    """CESutility_in_budget is a wrapper of CESutility_valid, making sure that the purchase is
     withing budget by checking on the total expenditures of the first two goods x and y and checking
-    to see if it exceeds the budget w, within the prices set by p_x and p_y."""
-    if w <= ((p_x * x) + (p_y * y)):
+    to see if it exceeds the budget w, within the prices set by p_x and p_y.
+    
+    >>> CESutility_in_budget(5, 4, .5, 6, 2, 56)
+    17.95
+    >>> CESutility_in_budget(2, 4, .5, 6, 2, 12)
+    Error! Not in budget.
+    None
+    >>> CESutility_in_budget(-2, 4, 5, 6, 2, 12)
+    Error! Not in budget.
+    Error! x cannot be negative.
+    None
+    """
+    if w < ((p_x * x) + (p_y * y)):
         print("Error! Not in budget.")
         return None
     else:
@@ -68,7 +90,7 @@ def logit(x, b_0, b_1) -> float:
 
 # Exercise (d)
 def logit_like(y_i, x_i, b_0, b_1) ->float:
-    """logit_like computes the log-likelihood and models binary events, where 1 equals
+    """logit_like is a wrapper which computes the log-likelihood and models binary events, where 1 equals
     if the event occured and 0 if it did not,using x_i as the predictor variable and y_i
     as the binary outcome"""
     if y_i == 1:
@@ -134,8 +156,8 @@ print("#" + 50*"-")
 print("Testing my Examples for Exercise B.")
 print("#" + 50*"-")
 print("Exercise B, Example 3:")
-print("Evaluating CESutility_in_budget(2, 4, 5, 6, 2, 12)")
-print("Expected: " + str('"Error! Not in budget." followed by None'))
+print("Evaluating CESutility_in_budget(-2, 4, 5, 6, 2, 12)")
+print("Expected: " + str('"Error! Not in budget.", "Error! x cannot be negative.", followed by None'))
 print("Got: " + str(CESutility_in_budget(2, 4, 5, 6, 2, 12)))
 
 
