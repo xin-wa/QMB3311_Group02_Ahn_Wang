@@ -71,7 +71,6 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
     Error! Not in budget.
     None
     >>> CESutility_in_budget(-2, 4, 5, 6, 2, 12)
-    Error! Not in budget.
     Error! x cannot be negative.
     None
     """
@@ -82,24 +81,42 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
         return CESutility_valid(x, y, r)
 
 # Exercise (c)
-def logit(x, b_0, b_1) -> float:
+def logit(x:float, b_0:float, b_1:float) -> float:
     """logit computes the logistic function using x as the input, and b_0 as the intercept,
-    and b_1 as the coefficient"""
+    and b_1 as the coefficient.
+    
+    >>> logit(2, .5, 3)
+    .998
+    >>> logit(-14, .5, 3)
+    9.48E-19
+    >>> logit(-1, -1, 4)
+    .00669
+    """
     answer = (e ** (b_0 + x * b_1))/(1 + e ** (b_0 + x * b_1))
     return answer
 
 # Exercise (d)
-def logit_like(y_i, x_i, b_0, b_1) ->float:
+def logit_like(y_i:int, x_i:float, b_0:float, b_1:float) ->float:
     """logit_like is a wrapper which computes the log-likelihood and models binary events, where 1 equals
-    if the event occured and 0 if it did not,using x_i as the predictor variable and y_i
-    as the binary outcome"""
+    if the event occured and 0 if it did not, using x_i as the predictor variable and y_i
+    as the binary outcome.
+
+    >>> logit_like(1, .5, 3, 2)
+    .9820
+    >>> logit_like(0, .5, 3, 2)
+    .0180
+    >>> logit_like(1, -12, 3, 2)
+    7.58256E-10
+    """
     if y_i == 1:
         x = x_i
         return logit(x, b_0, b_1)
     if y_i == 0:
         x = x_i
         return (1 - logit(x, b_0, b_1))
-
+    else:
+            print("Error! y_i must be equal to 1 or 0.")
+            return None
 
 # Only function definitions above this point. 
 
@@ -157,7 +174,7 @@ print("Testing my Examples for Exercise B.")
 print("#" + 50*"-")
 print("Exercise B, Example 3:")
 print("Evaluating CESutility_in_budget(-2, 4, 5, 6, 2, 12)")
-print("Expected: " + str('"Error! Not in budget.", "Error! x cannot be negative.", followed by None'))
+print("Expected: " + str('"Error! x cannot be negative." followed by None'))
 print("Got: " + str(CESutility_in_budget(2, 4, 5, 6, 2, 12)))
 
 
@@ -167,19 +184,19 @@ print("Testing my Examples for Exercise C.")
 print("#" + 50*"-")
 print("Exercise C, Example 1:")
 print("Evaluating logit(2, .5, 3)")
-print("Expected: " + str(1))
+print("Expected: " + str(.998))
 print("Got: " + str(logit(2, .5, 3)))
 
 print("#" + 50*"-")
 print("Exercise C, Example 2:")
 print("Evaluating logit(-14, .5, 3)")
-print("Expected: " + str(9.48))
+print("Expected: " + str(9.48E-19))
 print("Got: " + str(logit(-14, .5, 3)))
 
 print("#" + 50*"-")
 print("Exercise C, Example 3:")
 print("Evaluating logit(-1, -1, 4)")
-print("Expected: " + str(0))
+print("Expected: " + str(0.00669))
 print("Got: " + str(logit(-1, -1, 4)))
 
 
@@ -189,19 +206,19 @@ print("Testing my Examples for Exercise D.")
 print("#" + 50*"-")
 print("Exercise D, Example 1:")
 print("Evaluating logit_like(1, .5, 3, 2)")
-print("Expected: " + str(1))
+print("Expected: " + str(0.9820))
 print("Got: " + str(logit_like(1, .5, 3, 2)))
 
 print("#" + 50*"-")
 print("Exercise D, Example 2:")
 print("Evaluating logit_like(0, .5, 3, 2)")
-print("Expected: " + str(0))
+print("Expected: " + str(0.0180))
 print("Got: " + str(logit_like(0, .5, 3, 2)))
 
 print("#" + 50*"-")
 print("Exercise D, Example 3:")
 print("Evaluating logit_like(1, -12, 3, 2)")
-print("Expected: " + str(7.6))
+print("Expected: " + str(7.58256E-10))
 print("Got: " + str(logit_like(1, -12, 3, 2)))
 ##################################################
 # End
