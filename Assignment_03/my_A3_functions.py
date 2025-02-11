@@ -22,12 +22,28 @@
 ##################################################
 
 # import name_of_module
-from math import e
+import math
 
 
 ##################################################
 # Function Definitions
 ##################################################
+
+
+def CESutility(good_x: float, good_y: float, r: float) -> float:
+    """Calculate the constant elasticity of subsitution utility function for two goods.
+    
+    >>> CESutility(3, 4, 2)
+    5.0
+    >>> CESutility(1, 1, 2)
+    1.4142135623730951
+    >>> CESutility(3**0.5, 4**0.5, 4)
+    2.23606797749979
+    """
+    
+    utility = (good_x**r + good_y**r)**(1/r)
+    return utility
+
 
 # Only function definitions here - no other calculations. 
 
@@ -56,7 +72,7 @@ def CESutility_valid(x:float, y:float, r:float) -> float:
         print("Error! r must be positive")
         return None
     else:
-        answer = (x**r + y**r)**(1/r)
+        answer = CESutility(x, y, r)
         return answer
 
 # Exercise (b)
@@ -74,7 +90,10 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
     Error! x cannot be negative.
     None
     """
-    if w < ((p_x * x) + (p_y * y)):
+    if p_x < 0 or p_y < 0: # missed checking for a negative price (-1)
+        print("Error! Cannot have negative prices.")
+        return None
+    elif w < ((p_x * x) + (p_y * y)):
         print("Error! Not in budget.")
         return None
     else:
@@ -92,7 +111,7 @@ def logit(x:float, b_0:float, b_1:float) -> float:
     >>> logit(-1, -1, 4)
     .00669
     """
-    answer = (e ** (b_0 + x * b_1))/(1 + e ** (b_0 + x * b_1))
+    answer = math.exp(b_0 + x * b_1)/(1 + math.exp(b_0 + x * b_1)) # just in case there is a rounding issue
     return answer
 
 # Exercise (d)
@@ -107,13 +126,13 @@ def logit_like(y_i:int, x_i:float, b_0:float, b_1:float) ->float:
     .0180
     >>> logit_like(1, -12, 3, 2)
     7.58256E-10
-    """
+    """ # need to fix these cases after my fix
     if y_i == 1:
         x = x_i
-        return logit(x, b_0, b_1)
+        return math.log(logit(x, b_0, b_1)) # missed taking the log of the function (-2)
     if y_i == 0:
         x = x_i
-        return (1 - logit(x, b_0, b_1))
+        return math.log(1 - logit(x, b_0, b_1))
     else:
         print("Error! y_i must be equal to 1 or 0.")
         return None
