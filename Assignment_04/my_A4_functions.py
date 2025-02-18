@@ -157,49 +157,62 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
             sum += x[i]*(-logit)
         re[1] = sum
     return re
-
+if __name__ == "__main__":
+    doctest.testmod()
 
 # Exercise 4
-def CESutility_multi(x:float, a:float, r:float) -> float:
+def CESutility_multi(x: list, a: list, r: float) -> float:
     """
     Calculates the Constant Elasticity of Substitution utility function for valid
     values of the parameters x, a, and r when the consumer's utility is more than two
     goods.
+    
+    The function handles invalid cases such as:
+    - The number of elements in x and a don't match.
+    - Negative values in x or a.
+    - Invalid total utility calculation.
 
     >>> CESutility_multi([2, -3], [0.5, 0.5], 0.5)
-    Error! x and a must be nonnegative
+    'Error: x and a must be nonnegative'
     >>> CESutility_multi([-5, 3], [0.5, 0.5], 0)
     0.5
     >>> CESutility_multi([2, 3], [1, 0.5], 1)
     2.5
     >>> CESutility_multi([4, 3], [0.5, 2], -1)
     6.5
+    >>> CESutility_multi([1, 2], [0.5, 0.5], -5)
+    'Error: Total utility is invalid'
     """
-    
+
     if len(x) != len(a):
-        print("x and a must have same number of items.")
-        return None     
+        return "Error: x and a must have the same number of items."
+    
+ 
     for i in range(len(x)):
         if x[i] < 0 or a[i] < 0:
-            print("x and a must be nonnegative")
-            return None    
+            return "Error: x and a must be nonnegative"
+    
+
     if r == 0:
-        total = 0
-        for i in range(len(x)):
-            total += a[i] * x[i]
-        return total  
-    if r == 1:
-        total = 0
-        for i in range(len(x)):
-            total += a[i] * x[i]
+        total = sum(a[i] * x[i] for i in range(len(x)))
         return total
+    
+
+    if r == 1:
+        total = sum(a[i] * x[i] for i in range(len(x)))
+        return total
+    
+
     total = 0
     for i in range(len(x)):
         total += a[i]**(1 - r) * (x[i]**r)
+    
+ 
     if total <= 0:
-        return None
+        return "Error: Total utility is invalid"
 
     return total ** (1 / r)
+
 
 if __name__ == "__main__":
     doctest.testmod()
