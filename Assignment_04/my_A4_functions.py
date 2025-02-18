@@ -81,6 +81,42 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
 
 # Exercise 4
 
+def CESutility_multi(x:float, a:float, r:float) -> float:
+    """
+    Calculates the Constant Elasticity of Substituion utility function for valid
+    values of the parameters x, a, and r when the consumer's utility is more than two
+    goods.'
+    
+    >>> (CESutility_multi([2, -3], [0.5, 0.5], 0.5)
+    >>> (CESutility_multi([-5, 3], [0.5, 0.5], 0)
+    >>> (CESutility_multi([2, 3], [1, 0.5], 1)
+    >>> (CESutility_multi([4, 3], [0.5, 2], -1)
+
+        
+    """
+    if len(x) != len(a):
+        return None     
+    for i in range(len(x)):
+        if x[i] < 0 or a[i] < 0:
+            return None    
+    if r == 0:
+        total = 0
+        for i in range(len(x)):
+            total += a[i] * x[i]
+        return total  
+    if r == 1:
+        total = 0
+        for i in range(len(x)):
+            total += a[i] * x[i]
+        return total
+        total = 0
+    for i in range(len(x)):
+        total += a[i]**(1 - r) * (x[i]**r)
+    if total <= 0:
+        return None
+
+    return total ** (1 / r)
+# Only function definitions above this point. 
 
 
 # Only function definitions above this point. 
