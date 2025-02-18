@@ -1,35 +1,10 @@
-**********************************************************************
-File "__main__", line 14, in __main__.CESutility_multi
+File "__main__", line 9, in __main__.CESutility_multi
 Failed example:
-    CESutility_multi([-5, 3], [0.5, 0.5], 0)
+    CESutility_multi([5, 3], [0.5, 0.5], 1)
 Expected:
-    0.5
+    4
 Got:
-    'Error: x and a must be nonnegative'
-**********************************************************************
-File "__main__", line 16, in __main__.CESutility_multi
-Failed example:
-    CESutility_multi([2, 3], [1, 0.5], 1)
-Expected:
-    2.5
-Got:
-    3.5
-**********************************************************************
-File "__main__", line 18, in __main__.CESutility_multi
-Failed example:
-    CESutility_multi([4, 3], [0.5, 2], -1)
-Expected:
-    6.5
-Got:
-    0.7164179104477613
-**********************************************************************
-File "__main__", line 20, in __main__.CESutility_multi
-Failed example:
-    CESutility_multi([1, 2], [0.5, 0.5], -5)
-Expected:
-    'Error: Total utility is invalid'
-Got:
-    2.283301187268965
+    4.0
 **********************************************************************
 File "__main__", line 13, in __main__.logit_like_grad
 Failed example:
@@ -108,8 +83,8 @@ Got:
            [0., 1.]])
 **********************************************************************
 4 items had failures:
-   4 of   5 in __main__.CESutility_multi
+   1 of   5 in __main__.CESutility_multi
    4 of   6 in __main__.logit_like_grad
    3 of  15 in __main__.logit_like_sum
    2 of   8 in __main__.matrix_inverse
-***Test Failed*** 13 failures.
+***Test Failed*** 10 failures.
