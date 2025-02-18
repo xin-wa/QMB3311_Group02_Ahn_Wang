@@ -4,9 +4,9 @@
 #
 # QMB 3311: Python for Business Analytics
 #
-# Name: 
+# Name: Jaemin Ahn, Xin Wang
 #
-# Date:
+# Date: 2/17/25
 # 
 ##################################################
 #
