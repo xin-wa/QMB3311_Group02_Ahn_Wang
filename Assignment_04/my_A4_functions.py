@@ -4,9 +4,9 @@
 #
 # QMB 3311: Python for Business Analytics
 #
-# Name: Jaemin Ahn, Xin Wang
+# Name: 
 #
-# Date: Feb 17, 2025
+# Date:
 # 
 ##################################################
 #
@@ -24,7 +24,7 @@
 # import name_of_module
 import numpy as np
 import math
-
+import doctest
 ##################################################
 # Function Definitions
 ##################################################
@@ -34,18 +34,27 @@ import math
 # Exercise 1
 def matrix_inverse(mat_in):
     """Calculates the inverse of a 2×2 matrix using the analytical formula,
-    for a given input matrix mat_out.dot(mat_in), ensuring it is invertible.
-    Uses nested loops to construct the inverse matrix and returns the result
-    as a 2×2 NumPy array
-    >>>A = np.array([[-4, 7],
-                  [2, -]])
-    inv_A = matrix_inverse(A)
-    >>>B = np.array([[3, 5],
-                  [2, 1]])
-    inv_B = matrix_inverse(A)
-    >>>C = np.array([[2, 4],
-                  [1, 2]])
-    inv_C = matrix_inverse(C)
+    ensuring it is invertible. Uses nested loops to construct the inverse matrix
+    and returns the result as a 2×2 NumPy array.
+
+    >>> A = np.array([[-4, 7],
+    ...               [2, -3]])
+    >>> inv_A = matrix_inverse(A)
+    >>> np.round(inv_A.dot(A), 5)
+    array([[ 1.,  0.],
+           [ 0.,  1.]])
+
+    >>> B = np.array([[3, 5],
+    ...               [2, 1]])
+    >>> inv_B = matrix_inverse(B)
+    >>> np.round(inv_B.dot(B), 5)
+    array([[ 1.,  0.],
+           [ 0.,  1.]])
+
+    >>> C = np.array([[2, 4],
+    ...               [1, 2]])  # Singular matrix (det = 0)
+    >>> matrix_inverse(C)
+    Error! Determinant is 0
     """
     if mat_in[0][0]*mat_in[1][1] == mat_in[0][1]*mat_in[1][0]:
         print("Error! Determinant is 0")
@@ -60,30 +69,53 @@ def matrix_inverse(mat_in):
            else:
                mat_out[i][j] = factor * -1 * mat_in[i][j]
     return mat_out
-
+if __name__ == "__main__":
+    doctest.testmod() 
 # Exercise 2
 def logit_like_sum(y:list, x:list, b0:float, b1:float):
     """
-    logit_like_sum calculates the sum of all log likelihood events
+    logit_like_sum calculates the sum of all log likelihood events giving
+    that the observation y equals 1 if the event occurred and 0 if it did not.
+    The function uses logit link functions to compute the chances of an event
+    happening and sums the log likelihood across all observations.
+
+    >>> y = [1, 0, 1, 0]  
+    >>> x = [2, 3, 5, 1]  
+    >>> b0 = -1           
+    >>> b1 = 0.5 
+    >>> logit_like_sum(y, x, b0, b1)  
+    -2.2549...
+
+    >>> y = [0, 1, 1, 1, 0]
+    >>> x = [1, 4, 6, 2, 3]  
+    >>> b0 = -0.5  
+    >>> b1 = 0.8
+    >>> logit_like_sum(y, x, b0, b1)  
+    -2.864...
+
+    >>> y = [0, 0, 1, 1]
+    >>> x = [10, 15, -10, -20]
+    >>> b0 = 5  
+    >>> b1 = 2  
+    >>> logit_like_sum(y, x, b0, b1)
+    Error! log of number must be positive.
     """
     sum = 0
-    if len(y) == len(x):
-        for i in range(len(y)):
-            logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
-            if y[i] == 1:
-                sum += math.log(logit)
-            if y[i] == 0:
-                if 1 - logit <= 0:
-                    print("Error! log of number must be positive.")
-                    return None
-                else:
-                    sum += math.log(1 - logit)
-    else:
-        print("Error! x and y must contain same number of items")
-        return None
+    for i in range(len(y)):
+        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+        if y[i] == 1:
+            sum += math.log(logit)
+        if y[i] == 0:
+            if 1 - logit <= 0:
+                print("Error! log of number must be positive.")
+                return None
+            else:
+                sum += math.log(1 - logit)
     return sum
-
+if __name__ == "__main__":
+    doctest.testmod()          
 # Exercise 3
+
 def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     """Calculates the gradient vector of the likelihood function
     for the bivariate logistic regression model
@@ -126,20 +158,22 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
         re[1] = sum
     return re
 
-# Exercise 4
 
+# Exercise 4
 def CESutility_multi(x:float, a:float, r:float) -> float:
     """
-    Calculates the Constant Elasticity of Substituion utility function for valid
+    Calculates the Constant Elasticity of Substitution utility function for valid
     values of the parameters x, a, and r when the consumer's utility is more than two
-    goods.'
-    
-    >>> (CESutility_multi([2, -3], [0.5, 0.5], 0.5)
-    >>> (CESutility_multi([-5, 3], [0.5, 0.5], 0)
-    >>> (CESutility_multi([2, 3], [1, 0.5], 1)
-    >>> (CESutility_multi([4, 3], [0.5, 2], -1)
+    goods.
 
-        
+    >>> CESutility_multi([2, -3], [0.5, 0.5], 0.5)
+    Error! x and a must be nonnegative
+    >>> CESutility_multi([-5, 3], [0.5, 0.5], 0)
+    0.5
+    >>> CESutility_multi([2, 3], [1, 0.5], 1)
+    2.5
+    >>> CESutility_multi([4, 3], [0.5, 2], -1)
+    6.5
     """
     
     if len(x) != len(a):
@@ -159,18 +193,16 @@ def CESutility_multi(x:float, a:float, r:float) -> float:
         for i in range(len(x)):
             total += a[i] * x[i]
         return total
-        total = 0
+    total = 0
     for i in range(len(x)):
         total += a[i]**(1 - r) * (x[i]**r)
     if total <= 0:
         return None
 
     return total ** (1 / r)
-# Only function definitions above this point. 
 
-
-# Only function definitions above this point. 
-
+if __name__ == "__main__":
+    doctest.testmod()
 
 ##################################################
 # Test the examples in your docstrings
