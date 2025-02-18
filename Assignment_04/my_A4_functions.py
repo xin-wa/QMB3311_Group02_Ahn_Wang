@@ -37,24 +37,14 @@ def matrix_inverse(mat_in):
     ensuring it is invertible. Uses nested loops to construct the inverse matrix
     and returns the result as a 2×2 NumPy array.
 
-    >>> A = np.array([[-4, 7],
-    ...               [2, -3]])
-    >>> inv_A = matrix_inverse(A)
-    >>> np.round(inv_A.dot(A), 5)
-    array([[ 1.,  0.],
-           [ 0.,  1.]])
-
-    >>> B = np.array([[3, 5],
-    ...               [2, 1]])
-    >>> inv_B = matrix_inverse(B)
-    >>> np.round(inv_B.dot(B), 5)
-    array([[ 1.,  0.],
-           [ 0.,  1.]])
-
-    >>> C = np.array([[2, 4],
-    ...               [1, 2]])  # Singular matrix (det = 0)
-    >>> matrix_inverse(C)
+    >>> matrix_inverse([[1,2],[1,2]])
     Error! Determinant is 0
+    >>> matrix_inverse([[2,3],[1,2]])
+    array([[ 2., -3.],
+           [-1.,  2.]])
+    >>> matrix_inverse([[0,10],[11,2]])
+    array([[-0.01818182,  0.09090909],
+           [ 0.1,         0.        ]]
     """
     if mat_in[0][0]*mat_in[1][1] == mat_in[0][1]*mat_in[1][0]:
         print("Error! Determinant is 0")
@@ -72,6 +62,9 @@ def matrix_inverse(mat_in):
 if __name__ == "__main__":
     doctest.testmod() 
 # Exercise 2
+import numpy as np
+import math
+import doctest
 def logit_like_sum(y:list, x:list, b0:float, b1:float):
     """
     logit_like_sum calculates the sum of all log likelihood events giving
@@ -79,41 +72,37 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float):
     The function uses logit link functions to compute the chances of an event
     happening and sums the log likelihood across all observations.
 
-    >>> y = [1, 0, 1, 0]  
-    >>> x = [2, 3, 5, 1]  
-    >>> b0 = -1           
-    >>> b1 = 0.5 
-    >>> logit_like_sum(y, x, b0, b1)  
-    -2.2549...
-
-    >>> y = [0, 1, 1, 1, 0]
-    >>> x = [1, 4, 6, 2, 3]  
-    >>> b0 = -0.5  
-    >>> b1 = 0.8
-    >>> logit_like_sum(y, x, b0, b1)  
-    -2.864...
-
-    >>> y = [0, 0, 1, 1]
-    >>> x = [10, 15, -10, -20]
-    >>> b0 = 5  
-    >>> b1 = 2  
-    >>> logit_like_sum(y, x, b0, b1)
-    Error! log of number must be positive.
+    >>> logit_like_sum([1,2,1],[1,12,2],10,1)
+    y must equal 0 or 1
+    >>> logit_like_sum([1,1],[1,12,2],10,1)
+    Error! y and x must contain same number of items
+    >>> logit_like_sum([1,2,1],[1,12,2],.1,.2)
     """
     sum = 0
-    for i in range(len(y)):
-        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
-        if y[i] == 1:
-            sum += math.log(logit)
-        if y[i] == 0:
-            if 1 - logit <= 0:
-                print("Error! log of number must be positive.")
+    if len(y) == len(x):
+        for i in range(len(y)):
+            logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+            if y[i] != 1 or 0:
+                print("y must equal 0 or 1")
                 return None
+                break
+            if y[i] == 1:
+                sum += math.log(logit)
+            if y[i] == 0:
+                if 1 - logit <= 0:
+                    print("Error! log of number must be positive.")
+                    return None
+                else:
+                    sum += math.log(1 - logit)
+                    return sum
             else:
-                sum += math.log(1 - logit)
-    return sum
+                print("y must equal 0 or 1")
+                break
+    else:
+        print("Error! y and x must contain same number of items")
 if __name__ == "__main__":
     doctest.testmod()          
+
 # Exercise 3
 
 def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
