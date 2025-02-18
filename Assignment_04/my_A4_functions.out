@@ -1,1 +1,43 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Exercise 4
+File "__main__", line 9, in __main__.CESutility_multi
+Failed example:
+    (CESutility_multi([2, 3], [1, 0.5], 1))
+Expected nothing
+Got:
+    3.5
+**********************************************************************
+File "__main__", line 10, in __main__.CESutility_multi
+Failed example:
+    (CESutility_multi([4, 3], [0.5, 2], -1))
+Exception raised:
+    Traceback (most recent call last):
+      File "C:\Users\jaemi\anaconda3\Lib\doctest.py", line 1368, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest __main__.CESutility_multi[3]>", line 1, in <module>
+        (CESutility_multi([4, 3], [0.5, 2], -1))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "C:\Users\jaemi\AppData\Local\Temp\ipykernel_22172\280651499.py", line 31, in CESutility_multi
+        total += a[i]**(1 - r) * (x[i]**r)
+        ^^^^^
+    UnboundLocalError: cannot access local variable 'total' where it is not associated with a value
+**********************************************************************
+1 items had failures:
+   2 of   4 in __main__.CESutility_multi
+***Test Failed*** 2 failures.
