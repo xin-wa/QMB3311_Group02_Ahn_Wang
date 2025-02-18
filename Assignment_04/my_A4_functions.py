@@ -4,7 +4,7 @@
 #
 # QMB 3311: Python for Business Analytics
 #
-# Name: Ahn, Xin Wang
+# Name: Jaemin Ahn, Xin Wang
 #
 # Date: Feb 17, 2025
 # 
@@ -33,6 +33,8 @@ import math
 
 # Exercise 1
 def matrix_inverse(mat_in):
+    """ Replication of numpy method linalg.inv that calculates inverse of 2-by-2 matrix mat_in.
+    """
     if mat_in[0][0]*mat_in[1][1] == mat_in[0][1]*mat_in[1][0]:
         print("Error! Determinant is 0")
         return None
@@ -49,17 +51,24 @@ def matrix_inverse(mat_in):
 
 # Exercise 2
 def logit_like_sum(y:list, x:list, b0:float, b1:float):
+    """
+    logit_like_sum calculates the sum of all log likelihood events
+    """
     sum = 0
-    for i in range(len(y)):
-        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
-        if y[i] == 1:
-            sum += math.log(logit)
-        if y[i] == 0:
-            if 1 - logit <= 0:
-                print("Error! log of number must be positive.")
-                return None
-            else:
-                sum += math.log(1 - logit)
+    if len(y) == len(x):
+        for i in range(len(y)):
+            logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+            if y[i] == 1:
+                sum += math.log(logit)
+            if y[i] == 0:
+                if 1 - logit <= 0:
+                    print("Error! log of number must be positive.")
+                    return None
+                else:
+                    sum += math.log(1 - logit)
+    else:
+        print("Error! x and y must contain same number of items")
+        return None
     return sum
 
 # Exercise 3
