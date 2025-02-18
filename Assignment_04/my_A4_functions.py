@@ -31,7 +31,20 @@
 # Only function definitions here - no other calculations. 
 
 # Exercise 1
-
+def matrix_inverse(mat_in):
+    if mat_in[0][0]*mat_in[1][1] == mat_in[0][1]*mat_in[1][0]:
+        print("Error! Determinant is 0")
+        return None
+    s = (2,2)
+    mat_out = np.zeros(s)
+    factor = 1 / (mat_in[0][0]*mat_in[1][1]-mat_in[0][1]*mat_in[1][0])
+    for i in range(2):
+        for j in range(2):
+           if i == j:
+               mat_out[i][j] = factor * mat_in[1-i][1-j]
+           else:
+               mat_out[i][j] = factor * -1 * mat_in[i][j]
+    return mat_out
 
 # Exercise 2
 
