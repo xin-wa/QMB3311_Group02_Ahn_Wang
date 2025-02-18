@@ -116,7 +116,7 @@ if __name__ == "__main__":
     doctest.testmod()          
 # Exercise 3
 
-def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
+def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
     """Calculates the gradient vector of the likelihood function
     for the bivariate logistic regression model
     for sevaral pairs of observations in the lists x and y,
