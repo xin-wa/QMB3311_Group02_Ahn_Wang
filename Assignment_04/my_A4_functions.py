@@ -22,7 +22,8 @@
 ##################################################
 
 # import name_of_module
-
+import numpy as np
+import math
 
 ##################################################
 # Function Definitions
@@ -85,9 +86,24 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
     [-2/3, -2.0]
     """
-    
-    return None
-
+    re = [0,0]
+    sum = 0 
+    for i in range(len(y)):
+        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+        if y[i] == 1:
+            sum += (1-logit)
+        if y[i] == 0:
+            sum += -logit
+        re[0] = sum
+    sum = 0
+    for i in range(len(y)):
+        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+        if y[i] == 1:
+            sum += x[i]*(1-logit)
+        if y[i] == 0:
+            sum += x[i]*(-logit)
+        re[1] = sum
+    return re
 
 # Exercise 4
 
