@@ -141,10 +141,13 @@ def CESutility_multi(x:float, a:float, r:float) -> float:
 
         
     """
+    
     if len(x) != len(a):
+        print("x and a must have same number of items.")
         return None     
     for i in range(len(x)):
         if x[i] < 0 or a[i] < 0:
+            print("x and a must be nonnegative")
             return None    
     if r == 0:
         total = 0
