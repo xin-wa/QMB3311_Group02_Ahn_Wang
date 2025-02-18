@@ -47,11 +47,21 @@ def matrix_inverse(mat_in):
     return mat_out
 
 # Exercise 2
-
+def logit_like_sum(y:list, x:list, b0:float, b1:float):
+    sum = 0
+    for i in range(len(y)):
+        logit = math.exp(b0 + x[i] * b1)/(1+math.exp(b0 + x[i] * b1))
+        if y[i] == 1:
+            sum += math.log(logit)
+        if y[i] == 0:
+            if 1 - logit <= 0:
+                print("Error! log of number must be positive.")
+                return None
+            else:
+                sum += math.log(1 - logit)
+    return sum
 
 # Exercise 3
-
-
 def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     """Calculates the gradient vector of the likelihood function
     for the bivariate logistic regression model
