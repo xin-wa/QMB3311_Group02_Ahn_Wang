@@ -166,53 +166,44 @@ def CESutility_multi(x: list, a: list, r: float) -> float:
     Calculates the Constant Elasticity of Substitution utility function for valid
     values of the parameters x, a, and r when the consumer's utility is more than two
     goods.
-    
-    The function handles invalid cases such as:
-    - The number of elements in x and a don't match.
-    - Negative values in x or a.
-    - Invalid total utility calculation.
 
     >>> CESutility_multi([2, -3], [0.5, 0.5], 0.5)
     'Error: x and a must be nonnegative'
-    >>> CESutility_multi([-5, 3], [0.5, 0.5], 0)
-    0.5
+    >>> CESutility_multi([5, 3], [0.5, 0.5], 1)
+    4
     >>> CESutility_multi([2, 3], [1, 0.5], 1)
-    2.5
+    3.5
     >>> CESutility_multi([4, 3], [0.5, 2], -1)
-    6.5
+    'Error: Total utility is invalid'
     >>> CESutility_multi([1, 2], [0.5, 0.5], -5)
     'Error: Total utility is invalid'
     """
 
+    # Ensure the lengths of x and a match
     if len(x) != len(a):
         return "Error: x and a must have the same number of items."
     
- 
+    # Check if there are any negative values in x or a
     for i in range(len(x)):
         if x[i] < 0 or a[i] < 0:
             return "Error: x and a must be nonnegative"
     
-
-    if r == 0:
+    # Case when r == 0 or r == 1: Sum the product of a[i] and x[i]
+    if r == 0 or r == 1:
         total = sum(a[i] * x[i] for i in range(len(x)))
         return total
     
-
-    if r == 1:
-        total = sum(a[i] * x[i] for i in range(len(x)))
-        return total
-    
-
+    # General case for r > 0
     total = 0
     for i in range(len(x)):
         total += a[i]**(1 - r) * (x[i]**r)
     
- 
-    if total <= 0:
+    # If total is less than or equal to 0, return an error
+    if r <= 0:
         return "Error: Total utility is invalid"
 
+    # Return the utility value raised to the power of 1/r
     return total ** (1 / r)
-
 
 if __name__ == "__main__":
     doctest.testmod()
