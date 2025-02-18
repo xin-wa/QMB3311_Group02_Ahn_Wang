@@ -33,7 +33,19 @@ import math
 
 # Exercise 1
 def matrix_inverse(mat_in):
-    """ Replication of numpy method linalg.inv that calculates inverse of 2-by-2 matrix mat_in.
+    """Calculates the inverse of a 2×2 matrix using the analytical formula,
+    for a given input matrix mat_out.dot(mat_in), ensuring it is invertible.
+    Uses nested loops to construct the inverse matrix and returns the result
+    as a 2×2 NumPy array
+    >>>A = np.array([[-4, 7],
+                  [2, -]])
+    inv_A = matrix_inverse(A)
+    >>>B = np.array([[3, 5],
+                  [2, 1]])
+    inv_B = matrix_inverse(A)
+    >>>C = np.array([[2, 4],
+                  [1, 2]])
+    inv_C = matrix_inverse(C)
     """
     if mat_in[0][0]*mat_in[1][1] == mat_in[0][1]*mat_in[1][0]:
         print("Error! Determinant is 0")
