@@ -168,30 +168,24 @@ def CESutility_multi(x: list, a: list, r: float) -> float:
     'Error: Total utility is invalid'
     """
 
-    # Ensure the lengths of x and a match
     if len(x) != len(a):
         return "Error: x and a must have the same number of items."
     
-    # Check if there are any negative values in x or a
     for i in range(len(x)):
         if x[i] < 0 or a[i] < 0:
             return "Error: x and a must be nonnegative"
     
-    # Case when r == 0 or r == 1: Sum the product of a[i] and x[i]
     if r == 0 or r == 1:
         total = sum(a[i] * x[i] for i in range(len(x)))
         return total
     
-    # General case for r > 0
     total = 0
     for i in range(len(x)):
         total += a[i]**(1 - r) * (x[i]**r)
     
-    # If total is less than or equal to 0, return an error
     if r <= 0:
         return "Error: Total utility is invalid"
 
-    # Return the utility value raised to the power of 1/r
     return total ** (1 / r)
 
 if __name__ == "__main__":
