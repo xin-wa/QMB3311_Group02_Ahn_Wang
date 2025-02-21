@@ -68,8 +68,8 @@ def matrix_inverse(mat_in:list) -> list:
             else:
                 mat_out[i][j] = (-factor) * mat_in[i][j] # b and c do not require swap but need to become negative
     # answer: return mat_out
-    return np.array(mat_out) # answer = factor * [[d,-b],[-c,a]] in NumPy array
-##################################################
+    return np.array(mat_out) # factor * [[d,-b],[-c,a]] in NumPy array
+    ########################
 
 # Exercise 2
 import numpy as np
@@ -85,15 +85,22 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float):
     >>> logit_like_sum([1,2,1],[1,12],10,1)
     Error! y and x must contain same number of items
     Error! y must be 0 or 1 only
+    Number of errors: 2
     >>> logit_like_sum([1,0,1],[1,12,2],100,20)
     Cannot take log of nonpositive number. When y=1, logit must be less than or equal to 1
+    >>> logit_like_sum([1,0],[math.log(2),math.log(.5)],0,1)
+    -0.811
     """
     # precondition checks
+    error = 0
     if len(y) != len(x): # CHECK if y and x lengths are not equal
         print("Error! y and x must contain same number of items")
-        return None
+        error += 1
     if not all(observation in [0,1] for observation in y): # CHECK if items in y are not only 0 or 1
         print("Error! y must be 0 or 1 only")
+        error += 1
+    if error > 0:
+        print("Number of errors: " + str(error))
         return None
     # calc
     likelihood_sum = 0 # initialize variable before forloop
@@ -115,7 +122,7 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float):
     round_sum = round(likelihood_sum,3)
     # answer
     return round_sum
-##################################################
+    #################
 
 # Exercise 3
 def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
@@ -126,7 +133,8 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
     
     >>> logit_like_grad([1,0,2],[12,1],0,0)
     Error! y and x must have same number of items
-    Error! y must be 0 or 1 only    
+    Error! y must be 0 or 1 only 
+    Number of errors: 2
     >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
     [0.0, 0.0]
     >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
@@ -141,11 +149,15 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
     [-2/3, -2.0]
     """
     # precondition checks w/ multiple error msgs
+    error = 0
     if len(y) != len(x): # CHECK y and x lengths are not equal
         print("Error! y and x must have same number of items")
-        return None
+        error += 1
     if not all(observation in [0,1] for observation in y): # CHECK items in y are not only 0 or 1
         print("Error! y must be 0 or 1 only")
+        error += 1 
+    if error > 0:
+        print("Number of errors: " + str(error))
         return None
     # calc
     re = [0,0] # initialize vector where re item 0 is k=0 and re item 1 is k=1 before forloop
@@ -157,8 +169,8 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
             logit = p/(1 + p) # logit function must be inside loop to iterate x[i]
 
             re[k[j]] += x[i]**k[j] * (y[i] - logit)
-            # re[k[j]]==re[0] for k=0, and re[k[j]]==re[1] for k=1
-            # x[i]**k[j]==1 for k=0, and x[i]**k[j]==x[i] for k=1
+            # re[k[j]]==re[0] for k=0; re[k[j]]==re[1] for k=1
+            # x[i]**k[j]==1 for k=0; x[i]**k[j]==x[i] for k=1
             # (y[i] - logit)==(1 - logit) for y=1, and (y[i] - logit)==(-logit) for y=0
     
     # previous calculation, left to show work
@@ -178,10 +190,9 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
 
     # rounding, did not use np.array b/c of spaces that broke doctest checking       
     round_re = [round(re[0],2),round(re[1],2)]
-    # answer: where k=0, re[0] is the sum of 1-logit if y=0 plus -logit where y=1; 
-    # and for k=1, re[1] is the sum of x[i]*(1-logit) where y = 1 plus -x[i]*logit where y=0
+    # answer
     return round_re 
-##################################################
+    ################
 
 # Exercise 4
 def CESutility_multi(x: list, a: list, r: float) -> float:
@@ -194,29 +205,33 @@ def CESutility_multi(x: list, a: list, r: float) -> float:
     Error! x and a must have matching length
     Error! all items in x and a must be nonnegative
     Error! r must be positive
+    Number of errors: 3
     >>> CESutility_multi([1,2,3,4],[1,0.5,100,11],1)
     10.0
-    >>> CESutility_multi([1.0],[4],.5)
-    4.0
     >>> CESutility_multi([1,1,4],[16,9,4],.5)
     121.0
     """
     # precondition checks w/ multiple error msgs
+    error = 0
     if len(x) != len(a):
         print("Error! x and a must have matching length") # CHECK if x and a length not equal
-        return None
+        error += 1
     if not all(quantity > 0 for quantity in x) or not all(weight > 0 for weight in a): # CHECK if x and a <=0
         print("Error! all items in x and a must be nonnegative")
-        return None
+        error += 1
     if r <= 0: # CHECK r is positive number and not 0
         print("Error! r must be positive")
+        error += 1
+    if error > 0:
+        print("Number of errors: " + str(error))
         return None
     # calc
     CES_sum = 0 # initialize variable
     for i in range(len(x)):
         CES_sum += a[i]**(1-r) * x[i]**r
-    # return
+    # answer CES_sum^(1/r)
     return CES_sum**(1/r)
+    #####################
 
 
 ##################################################
