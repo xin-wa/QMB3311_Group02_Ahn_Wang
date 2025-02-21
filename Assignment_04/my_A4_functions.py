@@ -149,7 +149,7 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
         return None
     # calc
     re = [0,0] # initialize vector where re item 0 is k=0 and re item 1 is k=1 before forloop
-    k = [0,1] # list of possible values of k
+    k = [0,1] # list of values of k
     
     for i in range(len(y)): # for each item i in range the length of y
         for j in k: # for each item j in list k
@@ -218,6 +218,7 @@ def CESutility_multi(x: list, a: list, r: float) -> float:
     # return
     return CES_sum**(1/r)
 
+
 ##################################################
 # Test the examples in your docstrings
 ##################################################
@@ -227,7 +228,6 @@ if __name__ == "__main__":
 
 # Question 2: Test using the doctest module. 
 
-
 # Make sure to include exampes in your docstring
 # with the proper formatting. 
 
@@ -235,10 +235,6 @@ if __name__ == "__main__":
 
 # Choose good examples that will test interesting cases. 
 # Make sure they all work correctly. 
-
-
-
-
 ##################################################
 # End
 ##################################################
