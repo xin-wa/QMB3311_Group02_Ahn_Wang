@@ -105,8 +105,7 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float):
     # calc
     likelihood_sum = 0 # initialize variable before forloop
 
-    for i in range(len(y)):
-        for i in range(len(y)): # for all items in range the length of y
+    for i in range(len(y)): # for all items in range the length of y
         p = math.exp(b0 + x[i]*b1)
         logit = p/(1 + p) # logit must be inside loop to iterate x[i]
         
@@ -133,7 +132,7 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
     
     >>> logit_like_grad([1,0,2],[12,1],0,0)
     Error! y and x must have same number of items
-    Error! y must be 0 or 1 only 
+    Error! y must be 0 or 1 only
     Number of errors: 2
     >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
     [0.0, 0.0]
