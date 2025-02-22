@@ -50,6 +50,7 @@ def matrix_inverse(mat_in:list) -> list:
     array([[-0.01,  0.05],
            [ 0.1 ,  0.  ]])
     """
+    # test cases do not have proper input format. (-1)
     # precondition checks, first for dimensions, and then for determinant feasibility
     if np.shape(mat_in) != (2,2): # CHECK if dimensions of array are not 2x2
         print("Error! mat_in must be 2x2 array")
