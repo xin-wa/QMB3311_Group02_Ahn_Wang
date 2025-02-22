@@ -72,10 +72,8 @@ def matrix_inverse(mat_in:list) -> list:
     ########################
 
 # Exercise 2
-import numpy as np
-import math
-import doctest
-def logit_like_sum(y:list, x:list, b0:float, b1:float):
+
+def logit_like_sum(y:list, x:list, b0:float, b1:float): # expected output? (-1)
     """
     logit_like_sum calculates the sum of all log likelihood events giving
     that the observation y equals 1 if the event occurred and 0 if it did not.
@@ -117,10 +115,9 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float):
             likelihood_sum += math.log(1 - y[i] + logit*(-1)**(1-y[i]))
             # if y[i]=1, takes the log of 1-1 + logit*1
             # if y[i]=0, takes the log of 1-0 + logit*-1
-    # rounding
-    round_sum = round(likelihood_sum,3)
+    
     # answer
-    return round_sum
+    return likelihood_sum
     #################
 
 # Exercise 3
@@ -188,7 +185,7 @@ def logit_like_grad(y: list, x: list, b0: float, b1: float) -> float:
     """
 
     # rounding, did not use np.array b/c of spaces that broke doctest checking       
-    round_re = [round(re[0],2),round(re[1],2)]
+    round_re = [re[0],re[1]]
     # answer
     return round_re 
     ################
