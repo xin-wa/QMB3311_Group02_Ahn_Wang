@@ -30,9 +30,11 @@ import math
 ##################################################
 
 
+import math
+
 def CESutility(good_x: float, good_y: float, r: float) -> float:
     """Calculate the constant elasticity of subsitution utility function for two goods.
-    
+
     >>> CESutility(3, 4, 2)
     5.0
     >>> CESutility(1, 1, 2)
@@ -40,7 +42,7 @@ def CESutility(good_x: float, good_y: float, r: float) -> float:
     >>> CESutility(3**0.5, 4**0.5, 4)
     2.23606797749979
     """
-    
+    #calc
     utility = (good_x**r + good_y**r)**(1/r)
     return utility
 
@@ -62,6 +64,7 @@ def CESutility_valid(x:float, y:float, r:float) -> float:
     Error! y cannot be negative.
     None
     """
+    # precondition checks
     if x < 0:
         print("Error! x cannot be negative.")
         return None
@@ -71,6 +74,7 @@ def CESutility_valid(x:float, y:float, r:float) -> float:
     if r <= 0:
         print("Error! r must be positive")
         return None
+    # calc
     else:
         answer = CESutility(x, y, r)
         return answer
@@ -90,12 +94,16 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
     Error! x cannot be negative.
     None
     """
+    # precondition checks for new variables not found in CESutility_valid
     if p_x < 0 or p_y < 0: # missed checking for a negative price (-1)
+        # if either p_x or p_y is < 0
+        # AND does not work b/c AND can only check if both ops are True, thus does not work for is only 1 op is < 0
         print("Error! Cannot have negative prices.")
         return None
     elif w < ((p_x * x) + (p_y * y)):
         print("Error! Not in budget.")
         return None
+    # calc, relies on CESutility_valid as a wrapper
     else:
         return CESutility_valid(x, y, r)
 
@@ -111,8 +119,10 @@ def logit(x:float, b_0:float, b_1:float) -> float:
     >>> logit(-1, -1, 4)
     .00669
     """
-    answer = math.exp(b_0 + x * b_1)/(1 + math.exp(b_0 + x * b_1)) # just in case there is a rounding issue
-    return answer
+    # calc
+    p = math.exp(b_0 + x * b_1)
+    return p/(1 + p) # just in case there is a rounding issue
+
 
 # Exercise (d)
 def logit_like(y_i:int, x_i:float, b_0:float, b_1:float) ->float:
@@ -121,21 +131,24 @@ def logit_like(y_i:int, x_i:float, b_0:float, b_1:float) ->float:
     as the binary outcome.
 
     >>> logit_like(1, .5, 3, 2)
-    .9820
+    -0.018149
     >>> logit_like(0, .5, 3, 2)
-    .0180
+    -4.018149
     >>> logit_like(1, -12, 3, 2)
-    7.58256E-10
-    """ # need to fix these cases after my fix
-    if y_i == 1:
-        x = x_i
+    -21.00000
+    """ # need to fix these cases after my fix #fixed
+    
+    # precondition check
+    if y_i != 0 and y_i != 1: # if y_i is not 0 and y_i is not 1 at the same time
+        #using OR does not work b/c OR shortcircuits for the left operand, and returns immediate True if y!=0 is True even if y=1
+        print("Error! y_i must be equal to 1 or 0.")   
+    # calc
+    elif y_i == 1:
+        x = x_i # necessary for wrapper, but it is also possible to write it as logit(x_i)
         return math.log(logit(x, b_0, b_1)) # missed taking the log of the function (-2)
-    if y_i == 0:
+    elif y_i == 0:
         x = x_i
         return math.log(1 - logit(x, b_0, b_1))
-    else:
-        print("Error! y_i must be equal to 1 or 0.")
-        return None
 
 # Only function definitions above this point. 
 
