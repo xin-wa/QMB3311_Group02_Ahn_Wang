@@ -78,7 +78,8 @@ def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
     return [x_star, y_star]
 
 # Exercise d
-def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,r:float,p_x:float,p_y:float,w:float) -> list[float]:
+def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
+               r:float,p_x:float,p_y:float,w:float) -> list[float]:
     """
     """
     # precheck
