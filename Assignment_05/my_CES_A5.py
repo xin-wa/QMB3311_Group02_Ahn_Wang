@@ -64,6 +64,8 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
 ##################################################
 # Exercise c
 def CESdemand_calc(r,p_y,p_x,w):
+    """
+    """
     # precheck
     if r == 1:
         print("Error! r equal 1")
