@@ -68,7 +68,7 @@ def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
     """
     # precheck
     if r == 1:
-        print("Error! r equal 1")
+        print("Error! r cannot equal 1")
         return None
     if p_y<=0 or p_x<=0:
         print("Error! Prices x and y must be positive")
