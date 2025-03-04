@@ -49,10 +49,9 @@ def CESutility_valid(x:float, y:float, r:float) -> float:
     return answer
 def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:float) -> float:
     # precondition checks for new variables not found in CESutility_valid
-    if p_x < 0 or p_y < 0:
+    if p_x <= 0 or p_y <= 0:
         # if either p_x or p_y is < 0
-        # AND does not work b/c AND can only check if both ops are True, thus does not work for is only 1 op is < 0
-        print("Error! Cannot have negative prices.")
+        print("Error! Prices must be positive")
         return None
     elif w < ((p_x * x) + (p_y * y)):
         print("Error! Not in budget.")
@@ -100,9 +99,16 @@ def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
     if w<=0:
         print("Error! Wealth w must be positive")
         return None
+    if step<=0:
+        print("Error! Step must be positive")
+        return None
+    if p_x <= 0 or p_y <= 0:
+        print("Error! Prices must be positive")
+        return None
     # init
     x_list = np.arange(x_min,x_max,step)
     y_list = np.arange(y_min,y_max,step)
+    
     max_CES = float("-inf")
     i_max = 0
     j_max = 0
