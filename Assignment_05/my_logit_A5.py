@@ -83,7 +83,7 @@ def logit_d_i(x_i:float, k:float) -> float:
         return d_i
         
 # Exercise b
-def logit_dLi_dbk(y_i:float,x_i:float,beta_0:float,beta_1:float) -> float:
+def logit_dLi_dbk(y_i:float,x_i:float,beta_0:float,beta_1:float) -> list[float]:
     """
     """
     # precheck

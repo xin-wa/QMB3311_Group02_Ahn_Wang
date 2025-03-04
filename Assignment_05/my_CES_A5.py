@@ -63,7 +63,7 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
 
 ##################################################
 # Exercise c
-def CESdemand_calc(r,p_y,p_x,w):
+def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
     """
     """
     # precheck
