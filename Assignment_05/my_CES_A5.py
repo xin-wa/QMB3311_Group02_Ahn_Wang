@@ -70,12 +70,18 @@ def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
     if r == 1:
         print("Error! r equal 1")
         return None
+    if p_y<=0 or p_x<=0:
+        print("Error! Prices x and y must be positive")
+        return None
+    if w <= 0:
+        print("Error! Wealth w must be positive")
+        return None
     # calc
     r_exp = r/(r-1)
     det = (p_x**r_exp + p_y**r_exp)
     x_star = w * (p_x**(1/(r-1)))/det
     y_star = w * (p_y**(1/(r-1)))/det
-    return [x_star, y_star]
+    return [round(x_star,2), round(y_star,2)]
 
 # Exercise d
 def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
