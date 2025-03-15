@@ -64,6 +64,16 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
 # Exercise c
 def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
     """
+    Return a list of two values that achieve the maximum value of CES_utility(),
+    subject to the budget constraint that the consumers basket of goods should
+    cost no more than their wealth.
+    
+    >>> CESdemand_calc(1, 3, 2, 5)
+    Error! r cannot equal 1
+    >>> CESdemand_calc(.1, 4, 2, 5)
+    [1.3, 0.6]
+    >>> CESdemand_calc(0.5, 3, 1, 10)
+    [7.5, 0.83]
     """
     # precheck
     if r == 1:
@@ -86,6 +96,18 @@ def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
 def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
                r:float,p_x:float,p_y:float,w:float) -> list[float]:
     """
+    
+    Finds values of x and y that maximizes the CESutility_in_budget within
+    a budget constraint. It takes the input ranges for x and y, the step size
+    between values, and parameters like the elasticity of subsitution, prices,
+    and wealth
+    
+    >>> max_CES_xy(1, 10, 1, 10, 0.5, 0.5, 3, 2, 100)
+    [9.5, 9.5]
+    >>> max_CES_xy(5, 3, 1, 10, 0.5, 0.5, 3, 2, 100)
+    Error! Prices x and y maximums must be greater than minimums
+    >>> max_CES_xy(0, 10, 0, 10, -0.5, 0.5, 3, 2, 100)
+    Error! Prices x and y must be positive
     """
     # precheck
     if x_min >= x_max or y_min >= y_max:
@@ -120,7 +142,6 @@ def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
                 i_max = i
                 j_max = j
     return [x_list[i_max],y_list[j_max]]
-
 
 ##################################################
 # Test examples.
