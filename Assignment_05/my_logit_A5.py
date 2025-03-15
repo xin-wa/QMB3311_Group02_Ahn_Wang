@@ -71,32 +71,60 @@ def logit_like_sum(y:list, x:list, b0:float, b1:float) -> float:
 ##################################################
 
 # Exercise a
-def logit_d_i(x_i:float, k:float) -> float:
+def logit_d_i(x_i: float, k: float) -> float:
     """
+    Calculates the term d_i in the gradient vector for logistic regression.
+    If the parameter k is 0, it returns 1; if k is 1, it returns the value
+    x_i, otherwise the function returns undefined.
+    
+    >>> logit_d_i(2, 0))      
+    1
+    >>> logit_d_i(2, 1))      
+    2
+    >>> logit_d_i(2, 3))      
+    undefined
     """
     # precheck
-    if k != 0 or k != 1:
+    if k != 0 and k != 1:
         print("undefined")
         return None
     elif k == 0 or k == 1:
         d_i = (x_i ** k)
         return d_i
-        
+print(logit_d_i(2, 0))      
 # Exercise b
-def logit_dLi_dbk(y_i:float,x_i:float,beta_0:float,beta_1:float) -> list[float]:
+def logit_dLi_dbk(y_i: float, x_i: float, beta_0: float, beta_1: float) -> list[float]:
     """
+    Calculates an individual term in the gradient vector for logistic regression.
+    Uses the formula for the partial derivative of the likelihood function L_i
+    with respect to beta_k.
+    
+    >>> logit_dLi_dbk(0, 1, 0.2, 0.8)
+    [-0.7310585786300049, -0.7310585786300049]
+    >>> logit_dLi_dbk(2, 3, 1.0, 2.0)
+    undefined
+    >>> logit_dLi_dbk(1, 2, 0.5, 1.5)
+    [0.02931223075135636, 0.05862446150271272]
     """
     # precheck
-    if y_i != 0 or y_i != 1:
+    if y_i != 0 and y_i != 1:
         print("undefined")
         return None
-    # calc
-    k = [0,1] # k initialized b/c not provided in function
-    dbk = logit_d_i(x_i, k)
-    dLi = (1-y_i)-logit(x_i, beta_0, beta_1)
-    return [(dbk[0]*dLi),(dbk[1]*dLi)]
+    
+    # calculate
+    dbk_0 = logit_d_i(x_i, 0)  # k = 0
+    dbk_1 = logit_d_i(x_i, 1)  # k = 1
+    
+    logit_value = logit(x_i, beta_0, beta_1)
+    
+    if y_i == 1:
+        dLi = (1 - logit_value)
+    elif y_i == 0:
+        dLi = (-logit_value)
+    
+    return [(dbk_0 * dLi), (dbk_1 * dLi)]
 
-
+print(logit_dLi_dbk(1, 2, 0.5, 1.5))
 ##################################################
 # Test examples.
 ##################################################
