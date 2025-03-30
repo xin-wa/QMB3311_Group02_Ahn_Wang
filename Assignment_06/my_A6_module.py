@@ -6,11 +6,11 @@
 #
 # Name: Jaemin Ahn, Xin Wang
 #
-# Date: 2/20/25
+# Date: 3/31/25
 # 
 ##################################################
 #
-# Sample Script for Assignment 4: 
+# Sample Script for Assignment 6: 
 # Function Definitions
 #
 ##################################################
