@@ -27,7 +27,7 @@ import doctest
 ##################################################
 
 #Step 1, Taylor Series, works best around 0>z>2
-def ln_taylor(z:float,n:float) -> float:
+def ln_taylor(z:float,n:int) -> float:
     """
     An infinite sum that approximates the natural logarithm function around z = 1.
     This series converges best when the z is close to 1.
@@ -115,7 +115,7 @@ def exp_x_diff_prime(x:float,z:float) -> float:
     return math.exp(x) #the derivative is e**x
 
 #Step 5, Newton method
-def ln_z_newton(z:float, x0:float, tol:float, num_iter:float) -> float:
+def ln_z_newton(z:float, x0:float, tol:float, num_iter:int) -> float:
     """
     Calculates the approximate natural log of z using Newton's method, starting from
     an initial guess. It updates the guess until the difference between
@@ -153,7 +153,7 @@ def exp_x_fp_fn(x:float,z:float) -> float:
     """
     return (z - math.exp(x) + 2*x)/2
 #Step 7, solving using fixed point method
-def ln_z_fixed_pt(z:float,x0:float,tol:float,num_iter:float) -> float:
+def ln_z_fixed_pt(z:float,x0:float,tol:float,num_iter:int) -> float:
     """
     Using the fixed point method to find the natural logarithm of z.
     Using the recurrence relation x_i+1 = g(x_i) repeatedly until it reaches
