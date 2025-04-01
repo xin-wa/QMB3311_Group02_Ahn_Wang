@@ -83,7 +83,7 @@ def ln_z_bisect(z:float, a_0:float, b_0:float, num_iter: int) ->float:
         pos, neg = b_0, a_0
 
     # Loop through the specified number of iterations
-    for _ in range(num_iter):
+    for k in range(num_iter):
         m_i = (pos + neg) / 2  # Midpoint of the interval
         f_mid = exp_x_diff(m_i, z)
 
