@@ -77,11 +77,11 @@ def logit_d_i(x_i: float, k: float) -> float:
     If the parameter k is 0, it returns 1; if k is 1, it returns the value
     x_i, otherwise the function returns undefined.
     
-    >>> logit_d_i(2, 0))      
+    >>> logit_d_i(2, 0)     
     1
-    >>> logit_d_i(2, 1))      
+    >>> logit_d_i(2, 1)  
     2
-    >>> logit_d_i(2, 3))      
+    >>> logit_d_i(2, 3)      
     undefined
     """
     # precheck
@@ -91,7 +91,7 @@ def logit_d_i(x_i: float, k: float) -> float:
     elif k == 0 or k == 1:
         d_i = (x_i ** k)
         return d_i
-print(logit_d_i(2, 0))      
+    
 # Exercise b
 def logit_dLi_dbk(y_i: float, x_i: float, beta_0: float, beta_1: float) -> list[float]:
     """
@@ -122,14 +122,14 @@ def logit_dLi_dbk(y_i: float, x_i: float, beta_0: float, beta_1: float) -> list[
     elif y_i == 0:
         dLi = (-logit_value)
     
-    return [(dbk_0 * dLi), (dbk_1 * dLi)]
+    return [(dbk_0 * dLi), (dbk_1 * dLi)] # missing k, so output is incorrect
 
-print(logit_dLi_dbk(1, 2, 0.5, 1.5))
+
 ##################################################
 # Test examples.
 ##################################################
 if __name__ == "__main__":
-    doctest.testmod()
+    print(doctest.testmod())
     
 ##################################################
 # End

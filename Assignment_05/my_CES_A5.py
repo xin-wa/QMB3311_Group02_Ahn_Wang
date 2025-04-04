@@ -54,7 +54,7 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
         print("Error! Prices must be positive")
         return None
     elif w < ((p_x * x) + (p_y * y)):
-        print("Error! Not in budget.")
+       # print("Error! Not in budget.")
         return None
     # calc, relies on CESutility_valid as a wrapper
     else:
@@ -62,7 +62,7 @@ def CESutility_in_budget(x:float, y:float, r:float, p_x:float, p_y:float, w:floa
 
 ##################################################
 # Exercise c
-def CESdemand_calc(r:float,p_y:float,p_x:float,w:float) -> list[float]:
+def CESdemand_calc(r:float,p_x:float,p_y:float,w:float) -> list[float]:
     """
     Return a list of two values that achieve the maximum value of CES_utility(),
     subject to the budget constraint that the consumers basket of goods should
@@ -112,8 +112,8 @@ def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
     # precheck
     if x_min >= x_max or y_min >= y_max:
         print("Error! Prices x and y maximums must be greater than minimums")
-    if x_min<=0 or x_max<=0 or y_min<=0 or y_max<=0:
-        print("Error! Prices x and y must be positive")
+    if x_min<0 or x_max<=0 or y_min<0 or y_max<=0:
+        print("Error! Cannot have less than zero consumption")
         return None
     if r<=0:
         print("Error! r must be positive")
@@ -135,13 +135,19 @@ def max_CES_xy(x_min:float,x_max:float,y_min:float,y_max:float,step:float,
     i_max = 0
     j_max = 0
     # calc
+
     for i in range(len(x_list)):
-        for j in range(len(x_list)):
-            if max_CES <= CESutility_in_budget(x_list[i], y_list[j], r, p_x, p_y, w):
-                max_CES = CESutility_in_budget(x_list[i], y_list[j], r, p_x, p_y, w)
+        for j in range(len(y_list)):
+            
+            CES_ij = CESutility_in_budget(x_list[i], y_list[j], r, p_x, p_y, w)
+
+            if not CES_ij == None and CES_ij > max_CES:
+                max_CES = CES_ij
                 i_max = i
                 j_max = j
     return [x_list[i_max],y_list[j_max]]
+
+x_min, x_max, y_min, y_max, step, r, p_x, p_y,w = 0, 12/2, 0, 12/4, 0.1, 1/2, 2, 4, 12
 
 ##################################################
 # Test examples.
